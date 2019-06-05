@@ -17,6 +17,7 @@ impl EvmcVm for EIP1962 {
 
         let is_call = (msg.kind == evmc_sys::evmc_call_kind::EVMC_CALL);
 
+        // FIXME: check that destination address matches EIP1962
         if !is_call || msg.input_data.is_null() || msg.input_size < 1 {
             return ExecutionResult::failure();
         }

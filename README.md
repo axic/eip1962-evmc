@@ -1,6 +1,6 @@
 # eip1962-evmc
 
-[EIP1962] implementation as an [EVMC] precompile module ([EIP2003] defines the semantics for EVMC precompiles).
+[EIP-1962] implementation as an [EVMC] precompile module ([EIP-2003] defines the semantics for EVMC precompiles).
 
 *Note*: It doesn't currently implement gas handling properly and doesn't support the pairing operation.
 
@@ -24,5 +24,5 @@ Alex Beregszaszi
 Apache 2.0
 
 [EVMC]: https://github.com/ethereum/evmc
-[EIP1962]: https://eips.ethereum.org/EIPS/eip-1962
-[EIP2003]: https://github.com/ethereum/EIPs/pull/2003
+[EIP-1962]: https://eips.ethereum.org/EIPS/eip-1962
+[EIP-2003]: https://github.com/ethereum/EIPs/pull/2003
