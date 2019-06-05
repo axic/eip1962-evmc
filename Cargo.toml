@@ -1,0 +1,17 @@
+[package]
+name = "eip1962-evmc"
+version = "0.1.0"
+authors = ["Alex Beregszaszi <alex@rtfs.hu>"]
+license = "Apache-2.0"
+edition = "2018"
+publish = false
+
+[lib]
+name = "eip1962"
+crate-type = ["staticlib", "dylib"]
+
+[dependencies]
+evmc-sys = { git = "https://github.com/ethereum/evmc" }
+evmc-vm = { git = "https://github.com/ethereum/evmc" }
+evmc-declare = { git = "https://github.com/ethereum/evmc" }
+eth_pairings = { git = "https://github.com/matter-labs/eip1829" }
