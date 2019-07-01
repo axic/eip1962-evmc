@@ -4,7 +4,7 @@ use evmc_vm::*;
 use eth_pairings::{PrecompileAPI, API};
 
 // FIXME: use 'precompile'
-#[evmc_declare_vm("EIP1962", "evm")]
+#[evmc_declare_vm("EIP1962", "evm", "0.1.0")]
 pub struct EIP1962;
 
 impl EvmcVm for EIP1962 {
@@ -12,17 +12,17 @@ impl EvmcVm for EIP1962 {
         EIP1962 {}
     }
 
-    fn execute(&self, code: &[u8], context: &ExecutionContext) -> ExecutionResult {
+    fn execute(&self, _code: &[u8], context: &ExecutionContext) -> ExecutionResult {
         let msg = context.get_message();
 
-        let is_call = (msg.kind == evmc_sys::evmc_call_kind::EVMC_CALL);
+        let is_call = msg.kind() == evmc_sys::evmc_call_kind::EVMC_CALL;
 
         // FIXME: check that destination address matches EIP1962
-        if !is_call || msg.input_data.is_null() || msg.input_size < 1 {
+        if !is_call || msg.input().is_none() || msg.input().unwrap().len() < 1 {
             return ExecutionResult::failure();
         }
 
-        let input = unsafe { std::slice::from_raw_parts(msg.input_data, msg.input_size) };
+        let input = msg.input().unwrap();
 
         let result = match input[0] {
             0 => API::add_points(&input[1..]),
