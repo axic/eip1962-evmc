@@ -14,4 +14,4 @@ crate-type = ["staticlib", "cdylib"]
 evmc-sys = { git = "https://github.com/ethereum/evmc" }
 evmc-vm = { git = "https://github.com/ethereum/evmc" }
 evmc-declare = { git = "https://github.com/ethereum/evmc" }
-eth_pairings = { git = "https://github.com/matter-labs/eip1829" }
+eth_pairings = { git = "https://github.com/matter-labs/eip1962" }
