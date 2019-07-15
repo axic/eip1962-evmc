@@ -13,14 +13,18 @@ impl EvmcVm for EIP1962 {
     fn execute(&self, _code: &[u8], context: &ExecutionContext) -> ExecutionResult {
         let msg = context.get_message();
 
-        let is_call = msg.kind() == evmc_sys::evmc_call_kind::EVMC_CALL;
-
-        // FIXME: check that destination address matches EIP1962
-        if !is_call || msg.input().is_none() || msg.input().unwrap().len() < 1 {
+        if msg.kind() != evmc_sys::evmc_call_kind::EVMC_CALL {
             return ExecutionResult::failure();
         }
 
-        let input = msg.input().unwrap();
+        // FIXME: check that destination address matches EIP1962
+
+        let input = msg.input();
+        let input = if input.is_none() {
+            return ExecutionResult::failure();
+        } else {
+            input.unwrap()
+        };
 
         let gas_cost = eth_pairings::gas_meter::GasMeter::meter(&input);
         let gas_cost = if gas_cost.is_err() {
