@@ -36,9 +36,11 @@ impl EvmcVm for EIP1962 {
             return ExecutionResult::failure();
         }
 
+        let result = result.unwrap();
+
         // FIXME: calculate this properly
         let gas_used = 65536;
 
-        ExecutionResult::success(gas_used, Some(result.unwrap()))
+        ExecutionResult::success(gas_used, Some(&result))
     }
 }
