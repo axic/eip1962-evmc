@@ -22,6 +22,23 @@ impl EvmcVm for EIP1962 {
 
         let input = msg.input().unwrap();
 
+        let gas_cost = eth_pairings::gas_meter::GasMeter::meter(&input);
+        if gas_cost.is_err() {
+            return ExecutionResult::failure();
+        }
+
+        let gas_cost = gas_cost.unwrap();
+
+        // TODO: change upstream to return i64
+        if gas_cost > 0x7fffffffffffffff {
+            return ExecutionResult::failure();
+        }
+        let gas_cost = gas_cost as i64;
+
+        if gas_cost > msg.gas() {
+            return ExecutionResult::failure();
+        }
+
         let result = eth_pairings::public_interface::API::run(&input);
         if result.is_err() {
             return ExecutionResult::failure();
@@ -29,9 +46,6 @@ impl EvmcVm for EIP1962 {
 
         let result = result.unwrap();
 
-        // FIXME: calculate this properly
-        let gas_used = 65536;
-
-        ExecutionResult::success(gas_used, Some(&result))
+        ExecutionResult::success(gas_cost, Some(&result))
     }
 }
