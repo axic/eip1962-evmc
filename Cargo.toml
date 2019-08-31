@@ -14,4 +14,5 @@ crate-type = ["staticlib", "cdylib"]
 evmc-sys = { git = "https://github.com/ethereum/evmc", rev = "683640bcfb468c09712a55b0106be3441e760dbf" }
 evmc-vm = { git = "https://github.com/ethereum/evmc", rev = "683640bcfb468c09712a55b0106be3441e760dbf" }
 evmc-declare = { git = "https://github.com/ethereum/evmc", rev = "683640bcfb468c09712a55b0106be3441e760dbf" }
-eth_pairings = { git = "https://github.com/matter-labs/eip1962", version = "0.1.1" }
+# 0.1.1
+eth_pairings = { git = "https://github.com/matter-labs/eip1962", rev = "07056a7d04557ad253219a1d0f7b901d68307563" }
