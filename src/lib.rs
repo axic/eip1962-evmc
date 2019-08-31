@@ -10,16 +10,20 @@ impl EvmcVm for EIP1962 {
         EIP1962 {}
     }
 
-    fn execute(&self, _code: &[u8], context: &ExecutionContext) -> ExecutionResult {
-        let msg = context.get_message();
-
-        if msg.kind() != evmc_sys::evmc_call_kind::EVMC_CALL {
+    fn execute<'a>(
+        &self,
+        _revision: evmc_sys::evmc_revision,
+        _code: &'a [u8],
+        message: &'a ExecutionMessage,
+        _context: &'a mut ExecutionContext<'a>,
+    ) -> ExecutionResult {
+        if message.kind() != evmc_sys::evmc_call_kind::EVMC_CALL {
             return ExecutionResult::failure();
         }
 
         // FIXME: check that destination address matches EIP1962
 
-        let input = msg.input();
+        let input = message.input();
         let input = if input.is_none() {
             return ExecutionResult::failure();
         } else {
@@ -40,7 +44,7 @@ impl EvmcVm for EIP1962 {
             gas_cost as i64
         };
 
-        if gas_cost > msg.gas() {
+        if gas_cost > message.gas() {
             return ExecutionResult::failure();
         }
 
