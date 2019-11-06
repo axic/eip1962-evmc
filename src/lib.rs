@@ -1,8 +1,7 @@
 use evmc_declare::evmc_declare_vm;
 use evmc_vm::*;
 
-// FIXME: use 'precompile'
-#[evmc_declare_vm("EIP1962", "evm", "0.1.0")]
+#[evmc_declare_vm("EIP1962", "precompiles", "0.1.0")]
 pub struct EIP1962;
 
 impl EvmcVm for EIP1962 {
