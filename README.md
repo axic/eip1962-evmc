@@ -3,8 +3,6 @@
 [EIP-1962] implementation as an [EVMC] precompile module ([EIP-2003] defines the semantics for EVMC precompiles).
 Uses Matter Labs' [eip1962](https://github.com/matter-labs/eip1962) crate.
 
-*Note*: It doesn't currently implement gas handling properly and doesn't support the pairing operation.
-
 ### Building
 
 Run:
