@@ -15,7 +15,7 @@ impl EvmcVm for EIP1962 {
         _revision: evmc_sys::evmc_revision,
         _code: &'a [u8],
         message: &'a ExecutionMessage,
-        _context: &'a mut ExecutionContext<'a>,
+        _context: Option<&'a mut ExecutionContext<'a>>,
     ) -> ExecutionResult {
         if message.kind() != evmc_sys::evmc_call_kind::EVMC_CALL {
             return ExecutionResult::failure();
